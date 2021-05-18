@@ -13,8 +13,8 @@ class BitQuery(object):
       self.API_KEY = json.load(f)['bitquery']
 
 
-    self.results = self.run_query()
-    self.coins = self.filter_WBNB(self.results)
+    #self.results = self.run_query()
+    #self.coins = self.filter_WBNB(self.results)
 
 
 
@@ -59,11 +59,13 @@ class BitQuery(object):
                           query))
 
 
-  def filter_WBNB(self, data=None):
-
-
+  def get_tokens(self, volume=10, data=None):
+    """
+    Volume specifies the number of coins to return
+      As results sometimes include Wrapped BNB results may be less than the volume provided
+    """
     if data is None:
-      data = self.data
+      data = self.run_query(volume)
 
     blocks = data['data']['ethereum']['arguments']
     

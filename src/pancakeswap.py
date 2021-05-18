@@ -7,10 +7,10 @@ class PancakeSwap(object):
     pass
 
 
-  def get_token_price(self, token):
+  def get_token_price(self, address):
 
 
-    url = f"https://api.pancakeswap.info/api/v2/tokens/{token}"
+    url = f"https://api.pancakeswap.info/api/v2/tokens/{address}"
 
     r = requests.get(url)
 

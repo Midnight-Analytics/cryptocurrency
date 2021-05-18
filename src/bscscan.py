@@ -30,8 +30,8 @@ class BSCSCAN(object):
 
 
 
-    @classmethod
-    def get_socials(cls, token):
+    
+    def get_socials(self, token):
 
     
         """
@@ -42,17 +42,32 @@ class BSCSCAN(object):
         
         r = requests.get(url)
         soup = BeautifulSoup(r.content, "html.parser")
-        
-        ul_socials = soup.find(class_="list-inline mb-0")
-        
-        links = []
-        
-        socials = {
-            "token": token,
-            "socials": links
-            }
-        
-        for i in ul_socials:
-            links.append((i.findChild("a")['href']))
+
+        try:
+
             
-        return socials
+            ul_socials = soup.find(class_="list-inline mb-0")
+            
+            links = []
+            
+            socials = {
+                "token": token,
+                "socials": links
+                }
+            
+            for i in ul_socials:
+                links.append((i.findChild("a")['href']))
+                
+            return socials
+        except:
+            return {"token": token,
+            "socials": "No Socials"
+            }
+
+if __name__ == '__main__':
+
+    test = BSCSCAN()
+    print(test.get_socials('0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82'))
+    print(test.total_supply('0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82'))
+
+
